@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace应该为mapper接口的路径 :com.mybatis.mapperInt -->
+
+<mapper namespace="com.MyBatis.mapperInt.UsermapperInt">
+
+
+    <!-- 映射单条记录 -->
+    <select id="selectUser" resultType="user" parameterType="java.lang.Integer">
+        SELECT * FROM user WHERE id = #{value}
+    </select>
+
+    <!-- sql模糊查询语句映射 -->
+    <!-- 映射多条记录 -->
+    <select id="selectUserByMoHu" resultType="user"
+            parameterType="user">
+        SELECT * FROM user WHERE username LIKE '%${value}%'
+    </select>
+
+    <!-- sql添加用户信息语句映射 -->
+    <!-- 不需要返回结果即不需要resultType -->
+    <!-- parameterType指定输入参数类型为POJO -->
+    <!-- #{}中指定POJO的属性名，接受到POJO对象的属性值，由于在系统中自增，所以无需写 -->
+    <insert id="insertStudent" parameterType="user">
+        INSERT INTO user (username,userage) value(#{username},#{userage})
+    </insert>
+
+
+    <!-- 根据ID删除用户映射文件 -->
+    <delete id="deleteStudent" parameterType="int">
+        DELETE FROM user
+        WHERE id = #{user.id}
+    </delete>
+
+
+
+    <!-- 根据ID更新用户信息 -->
+    <update id="update">
+        UPDATE user
+        SET username = #{username},userage = #{userage}
+        WHERE id = #{id}
+    </update>
+</mapper>
